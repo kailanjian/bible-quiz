@@ -1,0 +1,47 @@
+[
+ {
+  "id": "law",
+  "label": "Law / Pentateuch",
+  "description": "Genesis through Deuteronomy: creation, patriarchs, Exodus, Sinai, wilderness."
+ },
+ {
+  "id": "ot_history",
+  "label": "OT History",
+  "description": "Joshua through Esther: conquest, judges, monarchy, divided kingdom, exile and return."
+ },
+ {
+  "id": "wisdom_poetry",
+  "label": "Wisdom & Poetry",
+  "description": "Job, Psalms, Proverbs, Ecclesiastes, Song of Songs."
+ },
+ {
+  "id": "prophets",
+  "label": "Prophets",
+  "description": "Major and Minor Prophets, Isaiah through Malachi (incl. Lamentations and Daniel)."
+ },
+ {
+  "id": "gospels",
+  "label": "Gospels",
+  "description": "Matthew, Mark, Luke, John: the life, teaching, death and resurrection of Jesus."
+ },
+ {
+  "id": "acts",
+  "label": "Acts",
+  "description": "The early church from the ascension to Paul in Rome."
+ },
+ {
+  "id": "pauline_epistles",
+  "label": "Pauline Epistles",
+  "description": "Romans through Philemon."
+ },
+ {
+  "id": "general_epistles",
+  "label": "General Epistles",
+  "description": "Hebrews, James, 1-2 Peter, 1-3 John, Jude."
+ },
+ {
+  "id": "revelation",
+  "label": "Revelation",
+  "description": "The Revelation to John."
+ }
+]
