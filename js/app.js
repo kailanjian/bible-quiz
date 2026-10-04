@@ -1,6 +1,6 @@
-import { pickQuestions, score, QUIZ_SIZE } from './quiz.js';
-import * as store from './store.js';
-import { formatQuestion, esc, star, pct } from './render.js';
+import { pickQuestions, score, QUIZ_SIZE } from './quiz.js?v=2';
+import * as store from './store.js?v=2';
+import { formatQuestion, esc, star, pct } from './render.js?v=2';
 
 const app = document.getElementById('app');
 const nav = document.getElementById('nav');
@@ -11,7 +11,7 @@ nav.onclick = e => { setKeys(null); const g = e.target.dataset.go; if (g) ({ sta
 
 async function init() {
   try {
-    const res = await fetch('data/questions.json?v=1');
+    const res = await fetch('data/questions.json?v=2');
     bank = await res.json();
     byId = Object.fromEntries(bank.map(q => [q.id, q]));
   } catch (e) {
@@ -37,18 +37,19 @@ function start() {
   <p>${QUIZ_SIZE} random questions from a bank of ${bank.length} (${nOrig} marked <span class="ast">*</span> are from your original test).</p>
   <label>Testament <select id="t"><option value="all">Both</option><option value="OT">Old Testament</option><option value="NT">New Testament</option></select></label>
   <label><input type="checkbox" id="o"> Original-test questions only (*)</label>
+  <label><input type="checkbox" id="w"> Only “Where do you find?” questions</label>
   <label><input type="checkbox" id="f"> Focus mode (favor unseen and previously missed)</label>
   <div class="row"><button class="primary" id="go">Start quiz</button>
   <button id="miss" ${missed.length ? '' : 'disabled'}>Retry missed (${missed.length})</button></div></div>`;
-  t.value = s.testament; o.checked = s.originalsOnly; f.checked = s.focus;
-  go.onclick = () => begin({ testament: t.value, originalsOnly: o.checked, focus: f.checked });
+  t.value = s.testament; o.checked = s.originalsOnly; w.checked = s.whereOnly; f.checked = s.focus;
+  go.onclick = () => begin({ testament: t.value, originalsOnly: o.checked, whereOnly: w.checked, focus: f.checked });
   miss.onclick = () => begin({ testament: 'all', originalsOnly: false, focus: false, only: missed });
 }
 
 function missedIds() { const g = store.lastGrades(); return Object.keys(g).filter(id => g[id] === 'missed' && byId[id]); }
 
 function begin(opts) {
-  store.saveSettings({ testament: opts.testament, originalsOnly: opts.originalsOnly, focus: opts.focus });
+  store.saveSettings({ testament: opts.testament, originalsOnly: opts.originalsOnly, whereOnly: !!opts.whereOnly, focus: opts.focus });
   const qs = pickQuestions(bank, opts, store.lastGrades());
   if (!qs.length) { app.innerHTML = '<div class="card">No questions match those filters.</div>'; return; }
   quiz = { questions: qs.map(q => q.id), idx: 0, answers: [], startedAt: Date.now() };

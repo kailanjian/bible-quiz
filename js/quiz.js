@@ -19,9 +19,9 @@ function weighted(items, weightOf, n, rng) {
     .map(x => x.it);
 }
 
-export function pickQuestions(bank, { testament = 'all', originalsOnly = false, focus = false, only = null } = {}, grades = {}, rng = Math.random, n = QUIZ_SIZE) {
+export function pickQuestions(bank, { testament = 'all', originalsOnly = false, whereOnly = false, focus = false, only = null } = {}, grades = {}, rng = Math.random, n = QUIZ_SIZE) {
   let pool = bank.filter(q =>
-    (testament === 'all' || q.testament === testament) && (!originalsOnly || q.original));
+    (testament === 'all' || q.testament === testament) && (!originalsOnly || q.original) && (!whereOnly || /^where_find/.test(q.pattern)));
   if (only) pool = pool.filter(q => only.includes(q.id));
   if (!focus) return shuffle(pool, rng).slice(0, n);
   const w = q => ({ undefined: 3, missed: 4, partly: 2, got: 1 })[grades[q.id]] ?? 1;
